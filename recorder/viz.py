@@ -36,7 +36,7 @@ def read_json_files(directory):
 
     return typing_data
 
-directory_path = r'C:\Users\josep\Desktop\logs'
+directory_path = r'c:\Users\josep\Desktop\joseph.thibault@gmail.com\joseph.thibault@gmail.com'
 typing_data = read_json_files(directory_path)
 
 # Convert the list of data to a pandas DataFrame

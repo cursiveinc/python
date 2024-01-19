@@ -58,7 +58,8 @@ def extract_user_data(directory):
             with open(os.path.join(root, file), 'r') as f:
                 data = json.load(f)
                 for event in data['payload']:
-                    client_id = event['clientId']
+                    if event['event'] == 'keydown':  # Assuming 'event' is the relevant key in your data
+                        client_id = event['clientId']
                     user_data[user_email]['documents'].add(client_id)
                     user_data[user_email]['events'].append(event)
                     if event['key'] == ' ':

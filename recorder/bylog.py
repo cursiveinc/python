@@ -18,41 +18,61 @@ def extract_person_id_from_filepath(file_path):
     return person_id
 
 def extract_features_from_json_with_person_id(json_data, file_path):
-    """
-    Extract required features from the given JSON data, including personID from file path.
-
-    :param json_data: JSON data loaded from a file.
-    :param file_path: The full path of the JSON file.
-    :return: Extracted features as a dictionary.
-    """
     person_id = extract_person_id_from_filepath(file_path)
     latest_timestamp = 0
+    active_time = 0
+    last_event_timestamp = None
+    total_keys = 0
     total_characters = 0
     total_spaces = 0
+    total_commas = 0
     total_periods = 0
-    total_backspace = 0
+    total_special_characters = 0
+    total_backspace_delete = 0
+
+    special_characters = set('!@#$%^&*()-_=+[{]}\|;:"\',<.>/?')  # Define your set of special characters
 
     for event in json_data.get("payload", []):
         timestamp = int(event.get("unixTimestamp", 0))
         latest_timestamp = max(latest_timestamp, timestamp)
+        
+        if last_event_timestamp is not None:
+            time_diff = timestamp - last_event_timestamp
+            if time_diff <= 30000:  # 30 seconds in milliseconds
+                active_time += time_diff
+
+        last_event_timestamp = timestamp
+        total_keys += 1
+
         key = event.get("key", "").lower()
         if key:
             total_characters += 1
             if key == ' ':
                 total_spaces += 1
+            elif key == ',':
+                total_commas += 1
             elif key == '.':
                 total_periods += 1
-            elif key == 'backspace':
-                total_backspace += 1
+            elif key in special_characters:
+                total_special_characters += 1
+            elif key in ['backspace', 'delete']:
+                total_backspace_delete += 1
 
+    active_time_minutes = active_time / 60000  # Convert milliseconds to minutes
     latest_datetime = datetime.fromtimestamp(latest_timestamp / 1000).strftime('%Y-%m-%d %H:%M:%S')
+
     return {
         "personId": person_id,
         "latestDatetime": latest_datetime,
+        "activeTimeMinutes": active_time_minutes,
+        "totalKeys": total_keys,
         "totalCharacters": total_characters,
         "totalSpaces": total_spaces,
-        "totalPeriods": total_periods,
-        "totalBackspace": total_backspace
+        "totalCommas": total_commas,
+        "totalEndOfSentence": total_periods,  # Assuming 'totalEndOfSentence' counts periods
+        "totalSpecialCharacters": total_special_characters,
+        "totalBackspaceDelete": total_backspace_delete,
+        "filename": os.path.basename(file_path)  # Moved filename here for consistency
     }
 
 def find_json_files(directory, base_folder_name='logs'):
