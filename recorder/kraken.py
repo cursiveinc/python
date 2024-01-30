@@ -1,7 +1,7 @@
 import json
 import os
 
-# this file is for feature extraction and summary of the complete log file directory
+# this file is for feature extraction and summary of the complete log file directory?
 def process_file(json_data):
     client_ids = set()
     total_words = 0
