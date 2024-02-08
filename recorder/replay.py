@@ -28,7 +28,7 @@ def replay_events(events):
         time.sleep(0.05)  # Adding a small delay to simulate typing
 
 # Load the data
-log_events = load_log_data(r'C:\Users\josep\Desktop\logs\joseph.thibault@gmail.com\docs.google.com\document\d\1au7rhQIySpsGqMizEeq-nXrGthkpsaU7qekSxQN3uwo\edit\1702325811916-1702326423098.json')
+log_events = load_log_data(r'C:\Users\josep\Desktop\logs\joseph.thibault@gmail.com\docs.google.com\document\d\1KuNUWW44JuQp63vYFeNlsBef3mdiXdE_oxnHnhjyFdk\edit\1707138577097-1707138686182.json')
 
 # Sort the events by 'unixTimestamp'
 log_events.sort(key=lambda x: int(x['unixTimestamp']))
