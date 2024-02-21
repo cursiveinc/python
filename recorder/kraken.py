@@ -8,7 +8,7 @@ def process_file(json_data):
     timestamps = []
 
     # Accessing the 'payload' key which contains the events
-    events = json_data.get('payload', []) if isinstance(json_data, dict) else json_data
+    events = json_data.get('data', []) if isinstance(json_data, dict) else json_data
 
     for event in events:
         if not isinstance(event, dict):
@@ -76,7 +76,7 @@ def read_json_files(directory):
     return all_client_ids, total_words, total_time
 
 # Replace with the actual path to your JSON files directory
-directory_path = r'C:\Users\josep\Desktop\logs'
+directory_path = r'C:\Users\josep\Desktop\steve'
 client_ids, total_words, total_time = read_json_files(directory_path)
 
 # Calculating additional metrics

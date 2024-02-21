@@ -5,7 +5,7 @@ import time
 def load_log_data(file_path):
     with open(file_path, 'r') as file:
         data = json.load(file)
-    return data.get("payload", [])
+    return data.get("data", [])
 
 def replay_events(events):
     text_output = ""
@@ -19,7 +19,7 @@ def replay_events(events):
             text_output += "\n"  # Add a line break for 'Enter'
         elif key == "Backspace":
             text_output = text_output[:-1]  # Remove last character for 'Backspace'
-        elif key in ["Shift", "Ctrl", "Control", "ArrowLeft", "ArrowRight","ArrowUp","ArrowDown", "Alt"]:
+        elif key in ["Shift", "Ctrl", "Control", "BACKSPACE","ArrowLeft", "ArrowRight","ArrowUp","ArrowDown", "Alt"]:
             continue  # Ignore 'Shift', 'Ctrl', and 'Alt' keys
         else:
             text_output += key  # Add the character to the output
@@ -28,7 +28,7 @@ def replay_events(events):
         time.sleep(0.05)  # Adding a small delay to simulate typing
 
 # Load the data
-log_events = load_log_data(r'C:\Users\josep\Desktop\logs\joseph.thibault@gmail.com\docs.google.com\document\d\1KuNUWW44JuQp63vYFeNlsBef3mdiXdE_oxnHnhjyFdk\edit\1707138577097-1707138686182.json')
+log_events = load_log_data(r'C:\Users\josep\Downloads\revision-1146.json')
 
 # Sort the events by 'unixTimestamp'
 log_events.sort(key=lambda x: int(x['unixTimestamp']))

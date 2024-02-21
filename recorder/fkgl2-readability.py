@@ -46,11 +46,11 @@ def main(file_path):
     reconstructed_text = reconstruct_text(events)
     fk_grade_level = calculate_readability(reconstructed_text)
     
-    print(f"Reconstructed Text: {reconstructed_text}")
+#    print(f"Reconstructed Text: {reconstructed_text}")
     print(f"Flesch-Kincaid Grade Level: {fk_grade_level}")
 
 # Example usage - replace 'path_to_your_file.json' with your actual file path
-file_path = r'C:\Users\josep\Desktop\logs\joseph.thibault@gmail.com\docs.google.com\document\d\1KuNUWW44JuQp63vYFeNlsBef3mdiXdE_oxnHnhjyFdk\edit\1707138577097-1707138686182.json'
+file_path = r'C:\Users\josep\Desktop\singledoclogs\edit\joseph.thibault@gmail.com\docs.google.com\document\d\1CU08VrDu_PtIie2mO-j1esMgImPN0jsTM0nysMYTbDM\edit\1707162592668-1707260335097.json'
 main(file_path)
 
 

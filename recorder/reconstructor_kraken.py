@@ -74,7 +74,7 @@ def extract_texts_from_directory(directory_path):
     return texts
 
 # Example usage
-directory_path = r'C:\Users\josep\Desktop\logs\graysonhoffman2021@gmail.com\docs.google.com\document\d\1Ire_XLTcGx7QWGgLXzmoFbRh1GSh6endtzKKc2JaqsM\edit'
+directory_path = r'C:\Users\josep\Desktop\singledoclogs'
 extracted_texts = extract_texts_from_directory(directory_path)    
 
 # Displaying the extracted texts
