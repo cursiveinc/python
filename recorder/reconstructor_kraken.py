@@ -17,7 +17,7 @@ def process_key_events(events):
             continue
 
         # Handle backspace
-        if key == 'Backspace':
+        if key == 'BACKSPACE':
             if text:
                 text.pop()  # Remove the last character
         # Add other characters
@@ -43,7 +43,7 @@ def extract_text_from_keylog(file_path):
             data = json.load(file)
         
         # Extracting the keydown events
-        data_content = data.get("payload", [])
+        data_content = data.get("data", [])
         keydown_events = [event for event in data_content if event.get('event') == 'keydown']
         print(f"Processing {len(keydown_events)} keydown events from {file_path}")  # Debug print
 
@@ -74,7 +74,7 @@ def extract_texts_from_directory(directory_path):
     return texts
 
 # Example usage
-directory_path = r'C:\Users\josep\Desktop\singledoclogs'
+directory_path = r'C:\Users\josep\Desktop\Journal Article\Journal of Nursing Education'
 extracted_texts = extract_texts_from_directory(directory_path)    
 
 # Displaying the extracted texts
