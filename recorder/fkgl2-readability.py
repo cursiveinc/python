@@ -14,14 +14,25 @@ def reconstruct_text(events):
         if event['event'] != 'keydown':
             continue  # Only process 'keydown' events
 
-        key = event['key']
-        if key == "Enter":
-            text_output += " "  # Treat 'Enter' as a space for text reconstruction
-        elif key == "Backspace" and text_output:
-            text_output = text_output[:-1]  # Remove last character for 'Backspace'
-        elif len(key) == 1:  # Add the character to the output if it's a textual character
-            text_output += key
-        # Ignore other non-textual keys like "Shift", "Ctrl", etc.
+    key = event['key']
+    if key == "Control":
+        ctrl_pressed = True  # Remember that CTRL was last pressed
+    elif key == "Enter":
+        text_output += " "  # Treat 'Enter' as a space for text reconstruction
+    elif key == "Backspace":
+        if ctrl_pressed and text_output:  # If CTRL was pressed before Backspace
+            # Find the last space after removing trailing spaces
+            text_output = text_output.rstrip()  # Remove trailing spaces
+            last_space = text_output.rfind(' ')
+            text_output = text_output[:last_space if last_space != -1 else 0]
+            ctrl_pressed = False  # Reset CTRL flag after using it
+        elif text_output:
+            text_output = text_output[:-1]  # Regular backspace functionality
+    elif len(key) == 1:  # If it's a regular character key
+        text_output += key
+        ctrl_pressed = False  # Reset CTRL flag after any non-Control key press
+    else:
+        ctrl_pressed = False  # Also reset CTRL flag for any other keys
 
     return text_output
 
@@ -50,7 +61,7 @@ def main(file_path):
     print(f"Flesch-Kincaid Grade Level: {fk_grade_level}")
 
 # Example usage - replace 'path_to_your_file.json' with your actual file path
-file_path = r'C:\Users\josep\Desktop\singledoclogs\edit\joseph.thibault@gmail.com\docs.google.com\document\d\1CU08VrDu_PtIie2mO-j1esMgImPN0jsTM0nysMYTbDM\edit\1707162592668-1707260335097.json'
+file_path = r'C:\Users\josep\Desktop\logs\joseph.thibault@gmail.com\docs.google.com\document\d\190TgZPs9UivOhkVMJwe29zw10defY6b0PQSxzHMWaaM\edit\1709773559577-1709773616744.json'
 main(file_path)
 
 
