@@ -7,7 +7,7 @@ def process_key_events(events):
     Process keydown events to extract text, handling backspaces and ignoring specified special keys.
     """
     text = []
-    ignore_keys = {'Enter', 'Shift', 'Control', 'Alt', 'Escape', 'ArrowUp', 'ArrowDown', 'ArrowRight','ArrowLeft', 'Delete'}  # Set of keys to ignore
+    ignore_keys = {'Enter', 'Media', 'Play', 'Pause', 'Shift', 'Control', 'Alt', 'Tab', 'Escape', 'ArrowUp', 'ArrowDown', 'ArrowRight','ArrowLeft', 'Delete'}  # Set of keys to ignore
 
     for event in events:
         key = event.get('key', '')
@@ -17,7 +17,7 @@ def process_key_events(events):
             continue
 
         # Handle backspace
-        if key == 'BACKSPACE':
+        if key == 'Backspace':
             if text:
                 text.pop()  # Remove the last character
         # Add other characters
@@ -43,7 +43,7 @@ def extract_text_from_keylog(file_path):
             data = json.load(file)
         
         # Extracting the keydown events
-        data_content = data.get("data", [])
+        data_content = data.get("payload", [])
         keydown_events = [event for event in data_content if event.get('event') == 'keydown']
         print(f"Processing {len(keydown_events)} keydown events from {file_path}")  # Debug print
 
@@ -74,7 +74,7 @@ def extract_texts_from_directory(directory_path):
     return texts
 
 # Example usage
-directory_path = r'C:\Users\josep\Desktop\Journal Article\Journal of Nursing Education'
+directory_path = r'C:\Users\josep\Desktop\joseph.thibault@gmail.com\reconstruction'
 extracted_texts = extract_texts_from_directory(directory_path)    
 
 # Displaying the extracted texts

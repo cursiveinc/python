@@ -34,7 +34,9 @@ def reconstruct_text(events):
     else:
         ctrl_pressed = False  # Also reset CTRL flag for any other keys
 
+    print (text_output)
     return text_output
+    
 
 # Function to calculate the Flesch-Kincaid Grade Level
 def calculate_readability(text):
@@ -61,7 +63,7 @@ def main(file_path):
     print(f"Flesch-Kincaid Grade Level: {fk_grade_level}")
 
 # Example usage - replace 'path_to_your_file.json' with your actual file path
-file_path = r'C:\Users\josep\Desktop\logs\joseph.thibault@gmail.com\docs.google.com\document\d\190TgZPs9UivOhkVMJwe29zw10defY6b0PQSxzHMWaaM\edit\1709773559577-1709773616744.json'
+file_path = r'C:\Users\josep\Desktop\logs\joseph.thibault@gmail.com\joseph.thibault@gmail.com\docs.google.com\document\d\1XIZOl3PGZ6_2g1399imhtvT5_ndbuc7Nc-oQf9781M0\edit\1709571083629-1709571393573.json'
 main(file_path)
 
 
